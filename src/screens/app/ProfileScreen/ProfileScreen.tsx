@@ -55,12 +55,12 @@ export function ProfileScreen({ onRequireSetup }: ProfileScreenProps) {
     );
   };
 
-  const handleClear = async () => {
-    await clearItem('userData');
-    setUserData(null);
-    Alert.alert('Очищено', 'Данные пользователя удалены');
-    onRequireSetup?.();
-  };
+//   const handleClear = async () => {
+//     await clearItem('userData');
+//     setUserData(null);
+//     Alert.alert('Очищено', 'Данные пользователя удалены');
+//     onRequireSetup?.();
+//   };
 
   if (loading) {
     return (

@@ -16,9 +16,7 @@ interface SetupScreenProps {
   onSetupComplete: () => void;
 }
 
-export const SetupScreen: React.FC<SetupScreenProps> = ({
-  onSetupComplete,
-}) => {
+export function SetupScreen({ onSetupComplete }: SetupScreenProps) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");

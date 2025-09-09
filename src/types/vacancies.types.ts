@@ -11,7 +11,7 @@ interface Coordinates {
   latitude: number;
 }
 
-interface CompanyData {
+export interface CompanyData {
   id: string;
   logo: string;
   coordinates: Coordinates;

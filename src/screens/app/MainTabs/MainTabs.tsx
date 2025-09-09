@@ -5,6 +5,7 @@ import { HomeScreen } from '../HomeScreen/HomeScreen';
 import { FavoritesScreen } from '../FavoriteScreen/FavoriteScreen';
 import { ProfileScreen } from '../ProfileScreen/ProfileScreen';
 import { BottomTab } from '../../../components/ui/BottomTab/BottomTab';
+import { styles } from './MainTabs.styles';
 
 export const MainTabs = () => {
   return (
@@ -21,7 +22,3 @@ export const MainTabs = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: { flex: 1, flexDirection: 'column' },
-  content: { flex: 1 },
-});

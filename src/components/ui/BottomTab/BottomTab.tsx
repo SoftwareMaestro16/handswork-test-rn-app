@@ -22,7 +22,7 @@ export const BottomTab = () => {
             <Image
               source={isActive && tab.activeIcon ? tab.activeIcon : tab.icon}
               style={[
-                { width: 24, height: 24 },
+                { width: 28, height: 28 },
                 isActive && styles.activeIcon, 
               ]}
               resizeMode="contain"
