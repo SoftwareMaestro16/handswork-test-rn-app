@@ -11,7 +11,13 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     alignSelf: 'flex-start',
     width: 100,
-    marginLeft: 12
+  },
+  heartButton: {
+    marginTop: screenWidth * 0.18,
+    marginBottom: 15,
+    padding: 10,
+    borderRadius: 6,
+    alignSelf: 'flex-start',
   },
   backButtonText: { 
     fontSize: 17, 

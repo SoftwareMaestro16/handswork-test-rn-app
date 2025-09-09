@@ -1,32 +1,80 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { useLocation, useNavigate } from 'react-router-native';
 import { CompanyData } from '../../../types/vacancies.types';
 import { styles } from './VacanciesDetailScreen.style';
 import { MainButton } from '../../../components/ui/Button/MainButton';
+import { getItem, setItem } from '../../../utils/storage';
 
 export function VacancyDetailScreen() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const vacancy: CompanyData = state;
+  const [heartStatus, setHeartStatus] = useState<'heart' | 'heart-active'>(
+    'heart',
+  );
+
+  useEffect(() => {
+    const checkFavorite = async () => {
+      const favorites: CompanyData[] = (await getItem('favorites')) || [];
+      const isFavorite = favorites.some(fav => fav.id === vacancy.id);
+      if (isFavorite) {
+        setHeartStatus('heart-active');
+      }
+    };
+    checkFavorite();
+  }, [vacancy.id]);
+
+  const heartImage =
+    heartStatus === 'heart'
+      ? require('../../../assets/vacancies/heart.png')
+      : require('../../../assets/vacancies/heart-active.png');
+
+  const toggleFavorite = async () => {
+    const favorites: CompanyData[] = (await getItem('favorites')) || [];
+
+    const isFavorite = favorites.some(fav => fav.id === vacancy.id);
+
+    if (isFavorite) {
+      const newFavorites = favorites.filter(fav => fav.id !== vacancy.id);
+      await setItem('favorites', JSON.stringify(newFavorites));
+      setHeartStatus('heart');
+    } else {
+      const newFavorites = [...favorites, vacancy];
+      await setItem('favorites', JSON.stringify(newFavorites));
+      setHeartStatus('heart-active');
+    }
+  };
 
   return (
     <>
-    <TouchableOpacity
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingHorizontal: 15,
+        }}
+      >
+        <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigate(-1)}
         >
           <Text style={styles.backButtonText}>← Назад</Text>
         </TouchableOpacity>
-      <ScrollView contentContainerStyle={{ padding: 16 }}>
-        
 
+        <TouchableOpacity style={styles.heartButton} onPress={toggleFavorite}>
+          <Image
+            source={heartImage}
+            style={{
+              width: 30,
+              height: 30,
+              tintColor: heartStatus === 'heart-active' ? '#E91E63' : '#000',
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView contentContainerStyle={{ padding: 16 }}>
         <Image source={{ uri: vacancy.logo }} style={styles.logo} />
         <Text style={styles.companyName}>{vacancy.companyName}</Text>
 
@@ -38,7 +86,8 @@ export function VacancyDetailScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Дата и время</Text>
           <Text style={styles.sectionText}>
-            {vacancy.dateStartByCity} | {vacancy.timeStartByCity} - {vacancy.timeEndByCity}
+            {vacancy.dateStartByCity} | {vacancy.timeStartByCity} -{' '}
+            {vacancy.timeEndByCity}
           </Text>
         </View>
 
@@ -58,8 +107,12 @@ export function VacancyDetailScreen() {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Оплата</Text>
-          <Text style={styles.sectionText}>Базовая: {vacancy.priceWorker} ₽</Text>
-          <Text style={styles.sectionText}>Бонус: {vacancy.bonusPriceWorker} ₽</Text>
+          <Text style={styles.sectionText}>
+            Базовая: {vacancy.priceWorker} ₽
+          </Text>
+          <Text style={styles.sectionText}>
+            Бонус: {vacancy.bonusPriceWorker} ₽
+          </Text>
         </View>
 
         <View style={styles.section}>
