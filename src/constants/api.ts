@@ -1,0 +1,1 @@
+export const BACKEND_URL: string = 'https://mobile.handswork.pro/api/shifts/map-list-unauthorized?latitude=45.039268&longitude=38.987221';

@@ -1,19 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NativeRouter } from 'react-router-native';
+import { NativeRouter, Routes, Route } from 'react-router-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MainTabs } from './src/screens/MainTabs/MainTabs';
+import { MainTabs } from './src/screens/app/MainTabs/MainTabs';
+import { SetupScreen } from './src/screens/login/SetupScreen/SetupScreen';
+import { getItem } from './src/utils/storage';
 
 const queryClient = new QueryClient();
 
 export default function App() {
+  const [isSetupDone, setIsSetupDone] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const checkStorage = async () => {
+      const data = await getItem('userData'); // Теперь асинхронный
+      setIsSetupDone(!!data);
+    };
+    checkStorage();
+  }, []);
+
+  if (isSetupDone === null) return null;
+
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <NativeRouter>
-          <MainTabs />
+          <Routes>
+            {isSetupDone ? (
+              <Route path="/*" element={<MainTabs />} />
+            ) : (
+              <Route path="/*" element={<SetupScreen onSetupComplete={() => setIsSetupDone(true)} />} />
+            )}
+          </Routes>
         </NativeRouter>
       </SafeAreaProvider>
     </QueryClientProvider>

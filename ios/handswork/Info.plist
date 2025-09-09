@@ -2,11 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>Приложению нужен доступ к вашей геолокации</string>
-<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>Приложению нужен доступ к вашей геолокации</string>
-
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Это нужно, чтобы показывать ваш город и геопозицию</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Это нужно, чтобы показывать ваш город и геопозицию</string>
 	<key>UIAppFonts</key>
 	<array>
 	<string>MaterialIcons.ttf</string>

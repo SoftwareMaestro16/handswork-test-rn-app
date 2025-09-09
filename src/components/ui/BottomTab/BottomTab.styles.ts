@@ -14,13 +14,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tabText: {
-    fontSize: 13,
+    fontSize: 13.75,
     color: '#000',
     marginTop: 4,
   },
   activeText: {
     color: '#5985E1', 
-    fontWeight: 'bold',
   },
   activeIcon: {
     tintColor: '#5985E1', 

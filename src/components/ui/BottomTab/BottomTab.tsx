@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigate, useLocation } from 'react-router-native';
-import { TABS } from '../../constants/tabs';
+import { TABS } from '../../../constants/tabs';
 import { styles } from './BottomTab.styles';
 
 export const BottomTab = () => {

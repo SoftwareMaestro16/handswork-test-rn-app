@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-native';
 import { HomeScreen } from '../HomeScreen/HomeScreen';
 import { FavoritesScreen } from '../FavoriteScreen/FavoriteScreen';
 import { ProfileScreen } from '../ProfileScreen/ProfileScreen';
-import { BottomTab } from '../../components/ui/BottomTab';
+import { BottomTab } from '../../../components/ui/BottomTab/BottomTab';
 
 export const MainTabs = () => {
   return (
